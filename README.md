@@ -1,11 +1,11 @@
-#MRGanter+: Distributed FCA Algorithm Based on Twister#
+# MRGanter+: Distributed FCA Algorithm Based on Twister #
 
 <br>Release 1.3
 <br>By Biao Xu at TSSG, WIT
 
-##Intoduction##
+## Intoduction##
 
-MRGanter+is a distributed Formal Concept Analysis algorithm based on Gater's algorithm (as known as NextClosure) and an iterative MapReduce framework, Twister.
+MRGanter+is a distributed Formal Concept Analysis algorithm based on Gater's algorithm (as known as NextClosure) and an iterative MapReduce framework, [Twister](http://www.iterativemapreduce.org/).
 NextClosure calculates closures in lectic ordering to ensure every concept appears only once. This approach allows a single concept to be tested with the closure validation condition during each iteration. This is efficient when the algorithm runs on a single machine. For multi-machine computation, the extra computation and redundancy resulting from keeping  only one concept after each iteration across many machines is costly. We modify NextClosure to reduce the number of iterations and name the corresponding distributed algorithm MRGanter+.
 
 Rather than using redundancy checking, we keep as many closures as possible in each iteration; All closures are maintained and used to generate the next batch of closures. MRGanter+ has a Map method which calculates local concepts by working on previous concept and local data partition. The Reduce method in MRGanter+ merges local closures first, and then recursively examines if they already exist in the set of global formal concepts H. The set H is used to fast index and search a specified closure; it is designed as a two-level hash table to reduce its costs. The first level is indexed by the head attribute of the closure, while the second level is indexed by the length of the closure.
@@ -33,7 +33,7 @@ at http://www.springerlink.com/content/02p8282703rx0m78/. And you can download t
 <br>To know how MapReduce works please refer to "MapReduce Simplified Data Processing on Large Clusters" at http://static.usenix.org/event/osdi04/tech/full_papers/dean/dean.pdf.
 <br>Or you can find a presentaion introducing MRGanter+ which we made on ICFCA 2012: http://www.econ.kuleuven.be/ICFCA/present/Biao_Xu.pdf
 
-##Sample Data##
+## Sample Data ##
 
 To be used by MRGanter+, we patition a single file data in a horizontal way and specify their number of objects/records and the number of attributes. Below is a simple example.
 
@@ -55,7 +55,7 @@ To be used by MRGanter+, we patition a single file data in a horizontal way and 
 
 For testing purpose, we attached the well-known mushroom data, which is partitioned to 2 files, with source file. Appearently, you need to send each of them to a node when you have 2 nodes.
 
-##Requirments##
+## Requirments ##
 
 This algorithm implementation is tested with Twister 0.8 which requires Linux operating system. To compile MRGanterPlus some Java libraries are needed.
 
@@ -65,7 +65,7 @@ This algorithm implementation is tested with Twister 0.8 which requires Linux op
 		jug-uuid.jar
 		junit.jar
 
-##Installation and Configuration##
+## Installation and Configuration ##
 
 Few steps are needed in order to run MRGanter+ on your machine(s).
 
@@ -91,7 +91,7 @@ Few steps are needed in order to run MRGanter+ on your machine(s).
 <br>By default, the shell files such as start_twister.sh and stop_twister.sh in `$TWISTER_HOME/bin` are not runnable. You need to  change their properties as by choosing "Allow executing file as program" (on Ubuntu). 
 <br>Also, you have to adjust the JVM parameters for Twister runtime. Edit `$TWISTER_HOME/bin/stimr.sh` file, and change `-Xmx40000m` to whatever value suits your situation.
 
-##Run##
+## How to Run ##
 
 1. Export MRGanter+ and everything in the directory as runnable JAR file. If you use eclipse, please select "Package required libraries into generated JAR" for Library handling option. Of course you could use `MRGanter+.jar` file coming with source code. Now Place `MRGanter+.jar` to `$TWISTER_HOME/apps`.
 2. Start NaradaBrokering by running startbr.sh at its home directory.
@@ -110,7 +110,7 @@ Few steps are needed in order to run MRGanter+ on your machine(s).
 
 	For more details of parameters you can see the source code.
 
-##More Resource##
+## More Resource ##
 
 For the details of Twister, go to http://www.iterativemapreduce.org/#Papers_and_Presentation for the paper:
 > Jaliya Ekanayake, Hui Li, Bingjing Zhang, Thilina Gunarathne, Seung-Hee Bae, Judy Qiu, Geoffrey Fox, Twister: A Runtime for Iterative MapReduce," The First International Workshop on MapReduce and its Applications (MAPREDUCE'10) - HPDC2010
@@ -123,7 +123,7 @@ More information about setting up Twister environment, see
 
 For the use of Twister API, please refer to http://www.iterativemapreduce.org/docs/index.html
 
-##Feedback##
+## Feedback ##
 
 You are welcome to give any feedback and contributes. We're glad to hear from you about any bug. 
-<br>You can contact by softwind.xb@gmail.com.
+<br>You can reach me by softwind.xb@gmail.com.
